@@ -1,16 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { MainComponent } from './layouts/main/main.component';
 import { AlertModule } from 'ngx-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+
+import { 
+  MainComponent, 
+  NavbarComponent, 
+  LeftsidebarComponent, 
+  FooterComponent, 
+  ErrorpageComponent } from './layouts';
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    NavbarComponent,
+    FooterComponent,
+    LeftsidebarComponent,
+    ErrorpageComponent
   ],
   imports: [
     BrowserModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [MainComponent]
