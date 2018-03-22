@@ -10,6 +10,7 @@ import {
   FooterComponent, 
   ErrorpageComponent } from './layouts';
 import { HomeModule } from './home';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HomeModule } from './home';
     BrowserModule,
     AlertModule.forRoot(),
     AppRoutingModule,
-    HomeModule
+    HomeModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [MainComponent]
