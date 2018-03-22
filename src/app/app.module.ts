@@ -9,6 +9,7 @@ import {
   LeftsidebarComponent, 
   FooterComponent, 
   ErrorpageComponent } from './layouts';
+import { HomeModule } from './home';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {
   imports: [
     BrowserModule,
     AlertModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [MainComponent]
