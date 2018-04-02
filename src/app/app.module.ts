@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { AlertModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 
+import {Ng2Webstorage} from 'ngx-webstorage';
+
 import { 
   MainComponent, 
   NavbarComponent, 
@@ -25,7 +27,8 @@ import { SharedModule } from './shared/shared.module';
     AlertModule.forRoot(),
     AppRoutingModule,
     HomeModule,
-    SharedModule
+    SharedModule,
+    Ng2Webstorage
   ],
   providers: [],
   bootstrap: [MainComponent]
