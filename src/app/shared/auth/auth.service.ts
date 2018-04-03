@@ -40,11 +40,17 @@ export class AuthService {
         });
     }
 
+    //menyimpan authentication ke local dan session storage
     storeAuthenticationToken(token, rememberMe) {
         if (rememberMe) {
             this.$localStorage.store('authenticationToken', token);
         } else {
             this.$sessionStorage.store('authenticationToken', token);
         }
+    }
+
+    getToken() {
+        return this.$localStorage.retrieve('authenticationToken') 
+            || this.$sessionStorage.retrieve('authenticationToken');
     }
 }

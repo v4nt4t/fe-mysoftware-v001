@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { AuthPrincipalService } from '../auth/auth-principal.service';
 
 @Injectable()
 export class LoginService{
 
-    //status login
-    loginSucces:boolean = false;
-
     constructor(
-        private authService: AuthService
+        private authService: AuthService,
+        private authPrincipalService: AuthPrincipalService
     ){}
 
     login(credentials, callback?) {
@@ -18,7 +17,8 @@ export class LoginService{
 
             //cek login
             this.authService.login(credentials).subscribe(() => {
-                this.loginSucces = true;
+                this.authPrincipalService.identity(true);
+
                 resolve();
                 return cb('success');
             },(err) =>{
@@ -32,10 +32,7 @@ export class LoginService{
 
     logout(){
         this.authService.logout().subscribe();
-        this.loginSucces = false;
+        this.authPrincipalService.identity(false);
     }
 
-    isAuthenticated():boolean{
-        return this.loginSucces
-    }
 }
