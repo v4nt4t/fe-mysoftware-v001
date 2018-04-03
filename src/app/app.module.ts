@@ -13,6 +13,8 @@ import {
   ErrorpageComponent } from './layouts';
 import { HomeModule } from './home';
 import { SharedModule } from './shared/shared.module';
+import { AuthGuard } from './shared';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,10 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     HomeModule,
     SharedModule,
-    Ng2Webstorage
+    Ng2Webstorage,
+    AccountModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [MainComponent]
 })
 export class AppModule { }

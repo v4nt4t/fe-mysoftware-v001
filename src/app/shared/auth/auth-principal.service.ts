@@ -11,22 +11,22 @@ export class AuthPrincipalService {
         private authService:AuthService
     ){}
 
-    identity(status?:boolean): Promise<any> {
+    identity(status?:boolean): boolean {
 
         if(status){
             this.authenticated = true;
         }else{
-            this.authenticated = false;
+            //cek sudah login atau blm
+            if (this.authService.getToken() !== null){
+                this.authenticated = true;
+                console.log("sudah login");
+            }else{
+                this.authenticated = false;
+                console.log("blm login");
+            }
         }
 
-        //cek sudah login atau blm
-        if (this.authService.getToken() != null){
-            this.authenticated = true;
-        }else{
-            this.authenticated = false;
-        }
-
-        return null;
+        return this.authenticated;
 
     }
 
