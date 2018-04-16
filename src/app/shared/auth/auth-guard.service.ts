@@ -13,16 +13,15 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot): boolean| Promise<boolean>{
     let url: string = state.url;
-    console.log('AuthGuard#canActivate called');
     
     const authorities = route.data['authorities'];
-    
     return this.checkLogin();
   }
 
   checkLogin(): boolean {
     const principal = this.authPrincipalService;
 
+      //cek sudah login atau blm
       return principal.identity(false);
   }
 }

@@ -19,10 +19,8 @@ export class AuthPrincipalService {
             //cek sudah login atau blm
             if (this.authService.getToken() !== null){
                 this.authenticated = true;
-                console.log("sudah login");
             }else{
                 this.authenticated = false;
-                console.log("blm login");
             }
         }
 

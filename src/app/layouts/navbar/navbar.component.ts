@@ -18,16 +18,16 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
   }
 
   isAuthenticated(): boolean{
-    this.authPrincipalService.identity(false);
-
     return this.authPrincipalService.identity(false);
   }
 
   logout() {
     this.loginService.logout();
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
+
 }

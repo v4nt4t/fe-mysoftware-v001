@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginModule } from './login/login.module';
-import { AuthService, AuthPrincipalService } from './';
+import { AuthService, AuthPrincipalService, AuthServerProvider } from './';
 
 
 @NgModule({
@@ -12,7 +12,8 @@ import { AuthService, AuthPrincipalService } from './';
   declarations: [],
   providers:[
     AuthService,
-    AuthPrincipalService
+    AuthPrincipalService,
+    AuthServerProvider
   ]
 })
 export class SharedModule { }

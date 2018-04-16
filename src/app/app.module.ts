@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AlertModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
-
+import { HttpModule } from '@angular/http';
 import {Ng2Webstorage} from 'ngx-webstorage';
 
 import { 
@@ -26,6 +26,7 @@ import { AccountModule } from './account/account.module';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AlertModule.forRoot(),
     AppRoutingModule,
     HomeModule,
