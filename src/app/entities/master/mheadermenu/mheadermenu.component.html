@@ -1,0 +1,122 @@
+
+<p>
+  <b>HEADER MENU</b>
+</p>
+
+<app-pesan-master></app-pesan-master>
+
+<div class="card">
+    <div class="card-header">
+      Pencarian
+    </div>
+    <div class="card-body">
+        <div class="col-md-4">
+            <form>
+            <div class="form-group">
+                <select class="form-control" 
+                        [(ngModel)]="option.id" 
+                        [ngModelOptions]="{standalone: true}"
+                        (change)="reset()">
+                    <option *ngFor="let listOption of listOptions" [ngValue]="listOption.id">
+                        {{listOption.name}}
+                    </option> 
+                </select>
+              </div>
+              {{option.name}}
+              <div class="form-group">           
+                    <input type="text" class="form-control" name="paramCari" 
+                    [(ngModel)]="paramCari" [disabled]="option.id == 0">
+                </div>
+              <button type="submit" class="btn btn-primary" (click)= 'cari()'>Cari</button>
+            </form>
+        </div>
+      </div>
+  </div>
+<br>
+
+<div class="col-md-1 offset-md-11"> 
+  <form >
+      <div class="form-group">
+        <select class="form-control" name="pilihPage" [(ngModel)]="itemsPerPage" 
+        (change)="reset()">
+            <option *ngFor="let pilihPage of pilihPages" [ngValue]="pilihPage">
+              {{pilihPage}}
+            </option>
+        </select>
+      </div>
+  </form>
+</div> 
+
+<!-- list table -->
+<div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mheadermenu of mheadermenus; trackBy: trackIdentity; let i=index">
+        <th>{{i + nomor}}</th>
+        <td><b>Kode    :</b> {{mheadermenu.kode}} <br> 
+            <b>Uraian  :</b> {{mheadermenu.headermenu}} <br>
+            <b>Aktif   :</b> {{mheadermenu.allowedf}} <br> 
+            <b>Urutan  :</b> {{mheadermenu.urutan}}</td>
+        <td class="text-right">
+            <button type="submit" 
+            [routerLink]="['/mheadermenu/' + mheadermenu.id +'/edit' ]"
+            class="btn btn-primary btn-sm"
+            title="Edit">
+              <fa name="edit"></fa>
+            </button>
+            <button type="submit" class="btn btn-danger btn-sm"
+            title="Delete" (click)="openDeleteConfirm(mheadermenu.id, mheadermenu.kode)">
+              <fa name="trash"></fa>
+            </button>
+
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+ <!-- pagination -->
+<div *ngIf="mheadermenus && mheadermenus.length" >
+ 
+  <div class="d-flex justify-content-center">
+    <app-item-count [page]="page"
+    [itemsPerPage]="itemsPerPage"
+    [totalItems]="totalItems">
+    </app-item-count>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" [directionLinks] = "true" 
+      [rotate]="true" [itemsPerPage] = "itemsPerPage" [(ngModel)]="page"
+      [totalItems]="totalItems" [maxSize]="5" (pageChanged) = "pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
+</div>
+
+<app-buttonadd-master [link]="'/mheadermenu-new'"></app-buttonadd-master>
+
+<!-- childModal -->
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+     <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+              <h4 id="dialog-child-name" class="modal-title pull-left">Konfirmasi</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p>Apakah data dengan kode {{param}} ini akan di Hapus ?</p>
+            <button type="button" class="btn btn-default" (click)="delete()" >Yes</button>
+            <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+          </div>
+        </div>
+      </div>
+</div>

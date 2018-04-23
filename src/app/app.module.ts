@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AlertModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import {Ng2Webstorage} from 'ngx-webstorage';
@@ -15,6 +15,8 @@ import { HomeModule } from './home';
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './shared';
 import { AccountModule } from './account/account.module';
+import { EntitiesModule } from './entities/entities.module';
+
 
 @NgModule({
   declarations: [
@@ -27,12 +29,13 @@ import { AccountModule } from './account/account.module';
   imports: [
     BrowserModule,
     HttpModule,
-    AlertModule.forRoot(),
+    ModalModule.forRoot(),
     AppRoutingModule,
     HomeModule,
     SharedModule,
     Ng2Webstorage,
-    AccountModule
+    AccountModule,
+    EntitiesModule
   ],
   providers: [AuthGuard],
   bootstrap: [MainComponent]

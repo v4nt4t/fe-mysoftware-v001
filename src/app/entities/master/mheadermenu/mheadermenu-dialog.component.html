@@ -1,0 +1,84 @@
+
+<app-pesan-master></app-pesan-master>
+<div>
+    <button type="submit" 
+        class="btn btn-primary pull-right" 
+        title="Kembali" 
+        [routerLink]="'/mheadermenu'">
+        <fa name="chevron-left" size="1x"></fa>
+    </button>
+</div>
+<br>
+<div>
+<form  name="editForm" #editForm="ngForm">
+    <div class="form-group">
+        <label for="field_id">ID</label>
+        <input type="text" class="form-control" placeholder="Automatic" 
+          name = "id" id="field_id" [(ngModel)] = "mheadermenu.id" disabled>
+    </div>
+    <div class="form-group">
+        <label for="kode">Kode</label>
+        <input type="text" class="form-control" placeholder="Kode"
+        name = "kode" [(ngModel)] = "mheadermenu.kode"
+        required maxlength="5">
+        <div [hidden]="!(editForm.controls.kode?.dirty && editForm.controls.kode?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.kode?.errors?.required">
+                field ini harus diisi.
+            </small>
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.kode?.errors?.maxlength">
+                field ini tidak boleh lebih dari 5 karakter.
+            </small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="uraian">Uraian</label>
+        <input type="text" class="form-control" placeholder="Uraian"
+        name = "uraian" [(ngModel)] = "mheadermenu.headermenu"
+        required maxlength="50">
+        <div [hidden]="!(editForm.controls.uraian?.dirty && editForm.controls.uraian?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.uraian?.errors?.required">
+                field ini harus diisi.
+            </small>
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.uraian?.errors?.maxlength">
+                field ini tidak boleh lebih dari 50 karakter.
+            </small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="urutan">urutan</label>
+        <input type="number" class="form-control" placeholder="Urutan" min="1"
+        name = "urutan" [(ngModel)] = "mheadermenu.urutan"
+        required min="1">
+        <div [hidden]="!(editForm.controls.urutan?.dirty && editForm.controls.urutan?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.urutan?.errors?.required">
+                field ini harus diisi.
+            </small>
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.urutan?.errors?.number">
+                field ini harus diisi dengan angka.
+            </small>
+        </div>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" 
+        name = "allowedf" id="field_allowedf" 
+        [(ngModel)] = "mheadermenu.allowedf">
+        <label class="form-check-label" for="field_allowedf" >
+            <span *ngIf="mheadermenu.allowedf; else elseBlock"> Aktif </span>
+            <ng-template #elseBlock><span > Tidak Aktif </span></ng-template>
+        </label>
+    </div>
+</form>
+<br>
+<button type="submit" class="btn btn-info" title="Reset" *ngIf="dataTidakAda" (click)= "reset()">Reset</button>
+<button type="submit" class="btn btn-primary" 
+title="Simpan" (click)= "save()"
+[disabled]="editForm.form.invalid || isSaving">Simpan</button>
+</div>

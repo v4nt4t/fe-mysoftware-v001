@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { mheadermenuModule } from './mheadermenu/mheadermenu.module';
+import { SharedMasterModule } from './shared/shared-master.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    SharedMasterModule,
+    mheadermenuModule
   ],
-  declarations: []
+  declarations: [
+  ]
 })
 export class MasterModule { }

@@ -14,3 +14,18 @@
 }   
 
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.btn-custom-circle {
+    width: 45px;
+    height: 45px;
+    padding: 6px 0;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
+}
+.btn-position-add{
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px;
+} 
