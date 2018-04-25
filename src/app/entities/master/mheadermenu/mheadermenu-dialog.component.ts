@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MheadermenuServices } from "./mheadermenu.services";
-import { Mheadermenu } from "./mheadermenu.model";
+import { Mheadermenu } from "./";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
-import { ModalPesanComponent, PesanService } from "../../../shared";
+import { ModalPesanComponent, HandleErrorService } from "../../../shared";
 
 @Component({
     selector:"mheadermenu-dialog",
@@ -21,7 +21,7 @@ export class MheadermenuDialogComponent implements OnInit{
         private router:Router,
         private mheadermenuService: MheadermenuServices,
         private modalService: BsModalService,
-        private pesanService: PesanService
+        private handleErrorService:HandleErrorService
     ){}
 
     ngOnInit(){
@@ -43,7 +43,6 @@ export class MheadermenuDialogComponent implements OnInit{
             headermenu:null,
             allowedf:false 
         };
-
         this.dataTidakAda = true;
     }
 
@@ -52,13 +51,13 @@ export class MheadermenuDialogComponent implements OnInit{
         if(this.mheadermenu.id != null){
             this.mheadermenuService.update(this.mheadermenu)
             .subscribe(
-                (data:Mheadermenu)=>this.onSuccesSave(data),
-                (data:Mheadermenu)=>this.onErrorSave(data))
+                data=>this.onSuccesSave(data),
+                error=>this.onErrorSave(error))
         }else{
             this.mheadermenuService.create(this.mheadermenu)
             .subscribe( 
-                (data:Mheadermenu)=>this.onSuccesSave(data),
-                (data:Mheadermenu)=>this.onErrorSave(data))
+                data=>this.onSuccesSave(data),
+                error=>this.onErrorSave(error))
         }
     }
 
@@ -92,8 +91,9 @@ export class MheadermenuDialogComponent implements OnInit{
         this.router.navigate(['/mheadermenu']);
     }
 
-    onErrorSave(data){
-        this.pesanService.addByTipe("danger", "Gagal!, data gagal Simpan.")
+    onErrorSave(error){
+        const pesan = "Pesan!!: data gagal Simpan.";
+        this.handleErrorService.handleError(error, pesan);
     }
 
     modalPesan(pesan:string) {

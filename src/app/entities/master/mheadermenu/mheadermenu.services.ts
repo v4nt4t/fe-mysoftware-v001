@@ -1,86 +1,83 @@
 import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import { Mheadermenu } from "./";
+import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs/Rx';
-import { createRequestOption, ResponseWrapper } from "../../../shared";
-import { Mheadermenu } from "./mheadermenu.model";
+import { createRequestHttpClientOption } from "../../../shared";
+
+const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
 
 @Injectable()
 export class MheadermenuServices{
     
-    private url = "api/mheadermenus"
+    private url = "api/mheadermenus";
 
-    constructor(private http:Http){}
+    constructor(
+        private http:HttpClient  
+    ){}
 
-    create(mheadermenu:Mheadermenu): Observable<Mheadermenu>{
-        const copy = this.convert(mheadermenu);
-        return this.http.post(this.url, copy).map((res:Response)=>{
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse)
-        })
+    //tambah data
+    create(data:Mheadermenu):Observable<Mheadermenu>{
+        return this.http.post<Mheadermenu>(this.url, data, httpOptions);
     }
 
-    update(mheadermenu:Mheadermenu): Observable<Mheadermenu>{
-        const copy = this.convert(mheadermenu);
-        return this.http.put(this.url, copy).map((res:Response)=>{
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse)
-        })
+    //hapus data
+    delete(id:string):Observable<{}>{
+        const url = `${this.url}/${id}`;
+        return this.http.delete(url, httpOptions);
     }
 
-    delete(id:string):Observable<Response>{
-        return this.http.delete(`${this.url}/${id}`);
-    }
-    query(req?: any): Observable<any>{
-         const options = createRequestOption(req);
-        
-        return this.http.get(this.url, options)
-               .map((res:Response) =>this.convertResponse(res));
+    //ubah data
+    update(data:Mheadermenu):Observable<Mheadermenu>{
+        return this.http.put<Mheadermenu>(this.url, data, httpOptions);
     }
 
-    queryById(id): Observable<any>{
-    
-       return this.http.get(`${this.url}/${id}`)
-              .map((res:Response) =>{
+    //mencari semua data
+    query(req:any):Observable<HttpResponse<any>>{
+        const options = createRequestHttpClientOption(req);
+        return this.http.get<Mheadermenu[]>(
+            this.url, 
+            { 
+               observe: 'response',
+               params:options 
+            }
+        );
 
-            const jsonResponse = res.json();
-
-            return this.convertItemFromServer(jsonResponse);
-
-        });
-   }
-
-    queryLikeKode(req:any, kode:string): Observable<any>{
-        const options = createRequestOption(req);
-        
-        return this.http.get(`${this.url}/like/kode/${kode}`, options)
-               .map((res:Response) =>this.convertResponse(res));
     }
 
-    queryLikeUraian(req:any, uraian:string): Observable<any>{
-        const options = createRequestOption(req);
+    //mencari data berdasarkan ID
+    queryById(id:string):Observable<Mheadermenu>{
+        const url = `${this.url}/${id}`;
+        return this.http.get<Mheadermenu>(url);
 
-        return this.http.get(`${this.url}/like/uraian/${uraian}`, options)
-        .map((res:Response) =>this.convertResponse(res));
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+    //mencari data like kode
+    queryLikeKode(req:any, kode:string):Observable<HttpResponse<any>>{
+        const options = createRequestHttpClientOption(req);
+        const url = `${this.url}/like/kode/${kode}`;
+        return this.http.get<Mheadermenu[]>(
+            url, 
+            { 
+               observe: 'response',
+               params:options
+            }
+        );
     }
 
-       /**
-     * Convert a returned JSON object to Mheadermenu.
-     */
-    private convertItemFromServer(json: any): Mheadermenu {
-        const entity: Mheadermenu = Object.assign(new Mheadermenu(), json);
-        return entity;
-    }
-
-     /**
-     * Convert a Mheadermenu to a JSON which can be sent to the server.
-     */
-    private convert(mheadermenu: Mheadermenu): Mheadermenu {
-        const copy: Mheadermenu = Object.assign({}, mheadermenu);
-        return copy;
+    //mencari data like uraian
+    queryLikeUraian(req:any, uraian:string):Observable<HttpResponse<any>>{
+        const options = createRequestHttpClientOption(req);
+        const url = `${this.url}/like/uraian/${uraian}`;
+        return this.http.get<Mheadermenu[]>(
+            url, 
+            { 
+               observe: 'response',
+               params:options
+            }
+        );
     }
 }

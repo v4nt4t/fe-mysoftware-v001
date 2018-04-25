@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MheadermenuServices } from './mheadermenu.services';
-import { ResponseWrapper, ParseLinks, PesanService } from '../../../shared';
-import { Mheadermenu,  MheadermenuDeleteComponent} from './';
+import { ParseLinks, PesanService, HandleErrorService } from '../../../shared';
 import { ModalDirective } from 'ngx-bootstrap';
+
+import { Mheadermenu } from './';
 
 @Component({
   selector: 'app-mheadermenu',
@@ -33,7 +34,9 @@ export class MheadermenuComponent implements OnInit {
   constructor(
     private mheadermenuServices:MheadermenuServices,
     private parseLinks:ParseLinks,
-    private pesanService:PesanService
+    private pesanService:PesanService,
+    private handleErrorService:HandleErrorService
+  
   ) { }
 
   ngOnInit() {
@@ -67,9 +70,6 @@ export class MheadermenuComponent implements OnInit {
 
   sort() {
     const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-    if (this.predicate !== 'id') {
-        result.push('id');
-    }
     return result;
   }
 
@@ -81,7 +81,7 @@ export class MheadermenuComponent implements OnInit {
   }
 
   onError(error){
-    this.pesanService.addByTipe("danger",  "Data tidak ada")
+    this.handleErrorService.handleError(error, "Pesan: Pencarian, Data Tidak Ada !");
   }
 
   pilihPencarian(){
@@ -115,31 +115,35 @@ export class MheadermenuComponent implements OnInit {
       size: this.itemsPerPage,
       sort: this.sort()
     }).subscribe(
-      (res:ResponseWrapper)=>this.onSuccess(res.json, res.headers),
-      (res:ResponseWrapper)=>this.onError(res.json));
-
+      res=>this.onSuccess(res.body, res.headers),
+      error=>this.onError(error));
   }
 
   cariLikeKode(){
+
+    if(!this.paramCari){ return; };
+
     this.mheadermenuServices.queryLikeKode({
       page : this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort()},
       this.paramCari
     ).subscribe(
-      (res:ResponseWrapper)=>this.onSuccess(res.json, res.headers),
-      (res:ResponseWrapper)=>this.onError(res.json));
+      res=>this.onSuccess(res.body, res.headers),
+      error=>this.onError(error));
   }
   
   cariLikeUraian(){
+    if(!this.paramCari){ return; };
+
     this.mheadermenuServices.queryLikeUraian({
       page : this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort()},
       this.paramCari
     ).subscribe(
-      (res:ResponseWrapper)=>this.onSuccess(res.json, res.headers),
-      (res:ResponseWrapper)=>this.onError(res.json));
+      res=>this.onSuccess(res.body, res.headers),
+      error=>this.onError(error));
   }
 
   openDeleteConfirm(id:string, kode:string): void {
@@ -155,12 +159,12 @@ export class MheadermenuComponent implements OnInit {
   delete(){
     this.mheadermenuServices.delete(this.idModal)
     .subscribe(
-      (Response)=>{
+      x=>{
       this.cari();
-      this.pesanService.addByTipe("info",  "Berhasil!, Data Berhasil Dihapus")
+      this.pesanService.addByTipe("info",  "Pesan!!, Data Berhasil Dihapus")
     },
-      (error)=>{
-        this.pesanService.addByTipe("danger",  "Gagal!, Data Gagal Dihapus")
+      e=>{
+        this.handleErrorService.handleError(e, "Pesan!! : hapus, Data Gagal Dihapus");
     });
 
     this.childModal.hide();

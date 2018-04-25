@@ -3,8 +3,8 @@
   <b>HEADER MENU</b>
 </p>
 
-<app-pesan-master></app-pesan-master>
-
+<app-pesan></app-pesan>
+<!-- =================form pencarian=============================== -->
 <div class="card">
     <div class="card-header">
       Pencarian
@@ -33,7 +33,6 @@
       </div>
   </div>
 <br>
-
 <div class="col-md-1 offset-md-11"> 
   <form >
       <div class="form-group">
@@ -46,8 +45,8 @@
       </div>
   </form>
 </div> 
-
-<!-- list table -->
+<!-- ============================================================== -->
+<!-- =================tabel data=============================== -->
 <div>
   <table class="table">
     <thead class="thead-light">
@@ -81,15 +80,12 @@
     </tbody>
   </table>
 </div>
-
- <!-- pagination -->
+<!-- ============================================================== -->
+<!-- =================pagination=============================== -->
 <div *ngIf="mheadermenus && mheadermenus.length" >
  
   <div class="d-flex justify-content-center">
-    <app-item-count [page]="page"
-    [itemsPerPage]="itemsPerPage"
-    [totalItems]="totalItems">
-    </app-item-count>
+      <app-item-count [page]="page" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems"> </app-item-count>
   </div>
 
   <div class="d-flex justify-content-center">
@@ -101,9 +97,12 @@
   </div>
 </div>
 
-<app-buttonadd-master [link]="'/mheadermenu-new'"></app-buttonadd-master>
+<!-- ============================================================== -->
+<!-- =================add button=============================== -->
+<app-button-add [link]="'/mheadermenu-new'"></app-button-add>
 
-<!-- childModal -->
+<!-- ============================================================== -->
+<!-- =================modal delete confirm=============================== -->
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
      role="dialog" aria-labelledby="dialog-child-name">
      <div class="modal-dialog">

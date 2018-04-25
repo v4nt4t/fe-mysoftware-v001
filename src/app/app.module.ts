@@ -16,6 +16,8 @@ import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './shared';
 import { AccountModule } from './account/account.module';
 import { EntitiesModule } from './entities/entities.module';
+import { httpInterceptorProviders } from './block/http-interceptors';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { EntitiesModule } from './entities/entities.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     HttpModule,
     ModalModule.forRoot(),
     AppRoutingModule,
@@ -37,7 +40,10 @@ import { EntitiesModule } from './entities/entities.module';
     AccountModule,
     EntitiesModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    httpInterceptorProviders,
+    AuthGuard
+  ],
   bootstrap: [MainComponent]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-    selector: 'app-buttonadd-master',
+    selector: 'app-button-add',
     template: `<button type="button"
                     class="btn btn-position-add btn-custom-circle btn-info"
                     [routerLink]="[link]"
@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from "@angular/core";
                     <fa name="pencil" size = "2x"></fa>
                 </button>`
 })
-export class ButtonaddMasterComponent implements OnInit{
+export class ButtonaddComponent implements OnInit{
 
     @Input() link: string;
 

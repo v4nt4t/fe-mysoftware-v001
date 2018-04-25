@@ -1,41 +1,34 @@
-import { NgModule } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { FormsModule } from '@angular/forms';
-import { BrowserModule }  from '@angular/platform-browser';
 
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ModalModule, PaginationModule } from "ngx-bootstrap";
 
 import { 
     mheadermenuRoute, 
     MheadermenuComponent, 
     MheadermenuServices, 
-    MheadermenuDialogComponent,
-    MheadermenuDeleteComponent
+    MheadermenuDialogComponent
 } from "./";
-import { SharedMasterModule } from "../shared/shared-master.module";
+import { SharedModule } from "../../../shared/shared.module";
+import { SharedLibModule } from "../../../shared/shared-lib.module";
+
 
 @NgModule({
     imports:[
-        BrowserModule,
-        FormsModule,
         RouterModule.forChild(mheadermenuRoute),
-        AngularFontAwesomeModule,
         ModalModule,
         PaginationModule.forRoot(),
-        SharedMasterModule
+        SharedModule,
+        SharedLibModule
     ],
     declarations:[
         MheadermenuComponent,
-        MheadermenuDialogComponent,
-        MheadermenuDeleteComponent
+        MheadermenuDialogComponent
     ],
     providers:[
         MheadermenuServices
     ],
-    entryComponents:[
-        MheadermenuDeleteComponent
-    ]
+    schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class mheadermenuModule{}

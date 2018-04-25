@@ -8,7 +8,7 @@ import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
     </div>
   `
 })
-export class ItemCountMasterComponent implements OnChanges {
+export class ItemCountComponent implements OnChanges {
 
   dataAwal: number;
   dataAkhir: number;

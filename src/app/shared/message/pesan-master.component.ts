@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { PesanService } from "../../../shared";
+import { PesanService } from "./pesan.service";
+
 
 @Component({
-    selector: 'app-pesan-master',
+    selector: 'app-pesan',
     template: `<div *ngIf="pesanService.pesan">
                 <div  *ngFor="let pesan of pesanService.pesan">
                  <alert [type]="pesan.tipe" [dismissOnTimeout]="pesan.waktu" (onClosed)="pesanService.onClosed(pesan)">{{ pesan.pesan }}</alert>
@@ -10,7 +11,7 @@ import { PesanService } from "../../../shared";
                <div>
                `
 })
-export class PesanMasterComponent implements OnInit{
+export class PesanComponent implements OnInit{
 
     constructor(public pesanService:PesanService){}
 

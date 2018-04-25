@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 import { TransactionModule } from './transaction/transaction.module';
 import { MasterModule } from './master/master.module';
@@ -10,6 +10,7 @@ import { MasterModule } from './master/master.module';
     TransactionModule,
     MasterModule
   ],
-  declarations: []
+  declarations: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EntitiesModule { }
