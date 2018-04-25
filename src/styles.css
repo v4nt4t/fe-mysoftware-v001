@@ -29,3 +29,11 @@
     bottom: 30px; 
     right: 30px;
 } 
+
+.msg-position{
+    position:fixed; 
+    top: 80px;
+    right: 30px;
+    width: 60%;
+    z-index: 1;
+} 

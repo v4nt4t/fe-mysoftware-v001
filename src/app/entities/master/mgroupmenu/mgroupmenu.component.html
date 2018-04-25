@@ -1,0 +1,122 @@
+
+<p>
+    <b>GROUP MENU</b>
+  </p>
+  
+  <app-pesan></app-pesan>
+  <!-- =================form pencarian=============================== -->
+  <div class="card">
+      <div class="card-header">
+        Pencarian
+      </div>
+      <div class="card-body">
+          <div class="col-md-4">
+              <form>
+              <div class="form-group">
+                  <select class="form-control" 
+                          [(ngModel)]="option.id" 
+                          [ngModelOptions]="{standalone: true}"
+                          (change)="reset()">
+                      <option *ngFor="let listOption of listOptions" [ngValue]="listOption.id">
+                          {{listOption.name}}
+                      </option> 
+                  </select>
+                </div>
+                {{option.name}}
+                <div class="form-group">           
+                      <input type="text" class="form-control" name="paramCari" 
+                      [(ngModel)]="paramCari" [disabled]="option.id == 0">
+                  </div>
+                <button type="submit" class="btn btn-primary" (click)= 'cari()'>Cari</button>
+              </form>
+          </div>
+        </div>
+    </div>
+  <br>
+  <div class="col-md-1 offset-md-11"> 
+    <form >
+        <div class="form-group">
+          <select class="form-control" name="pilihPage" [(ngModel)]="itemsPerPage" 
+          (change)="reset()">
+              <option *ngFor="let pilihPage of pilihPages" [ngValue]="pilihPage">
+                {{pilihPage}}
+              </option>
+          </select>
+        </div>
+    </form>
+  </div> 
+  <!-- ============================================================== -->
+  <!-- =================tabel data=============================== -->
+  <div>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mgroupmenu of mgroupmenus; trackBy: trackIdentity; let i=index">
+          <th>{{i + nomor}}</th>
+          <td><b>Kode    :</b> {{mgroupmenu.kode}} <br> 
+              <b>Uraian  :</b> {{mgroupmenu.groupmenu}} <br>
+              <b>Aktif   :</b> {{mgroupmenu.allowedf}} <br> 
+              <b>Urutan  :</b> {{mgroupmenu.urutan}} <br> 
+              <b>Header  :</b> {{mgroupmenu.mheadermenu.headermenu}}</td>
+          <td class="text-right">
+              <button type="submit" 
+              [routerLink]="['/mgroupmenu/' + mgroupmenu.id +'/edit' ]"
+              class="btn btn-primary btn-sm"
+              title="Edit">
+                <fa name="edit"></fa>
+              </button>
+              <button type="submit" class="btn btn-danger btn-sm"
+              title="Delete" (click)="openDeleteConfirm(mgroupmenu.id, mgroupmenu.kode)">
+                <fa name="trash"></fa>
+              </button>
+  
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- ============================================================== -->
+  <!-- =================pagination=============================== -->
+  <div *ngIf="mgroupmenus && mgroupmenus.length" >
+   
+    <div class="d-flex justify-content-center">
+        <app-item-count [page]="page" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems"> </app-item-count>
+    </div>
+  
+    <div class="d-flex justify-content-center">
+      <pagination [boundaryLinks]="true" [directionLinks] = "true" 
+        [rotate]="true" [itemsPerPage] = "itemsPerPage" [(ngModel)]="page"
+        [totalItems]="totalItems" [maxSize]="5" (pageChanged) = "pageChanged($event)"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
+  </div>
+  
+  <!-- ============================================================== -->
+  <!-- =================add button=============================== -->
+  <app-button-add [link]="'/mgroupmenu-new'"></app-button-add>
+  
+  <!-- ============================================================== -->
+  <!-- =================modal delete confirm=============================== -->
+  <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+       role="dialog" aria-labelledby="dialog-child-name">
+       <div class="modal-dialog">
+          <div class="modal-content">
+  
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">Konfirmasi</h4>
+            </div>
+            <div class="modal-body text-center">
+              <p>Apakah data dengan kode {{param}} ini akan di Hapus ?</p>
+              <button type="button" class="btn btn-default" (click)="delete()" >Yes</button>
+              <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+            </div>
+          </div>
+        </div>
+  </div>

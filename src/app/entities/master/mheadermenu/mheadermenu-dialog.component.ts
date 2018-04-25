@@ -6,8 +6,8 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { ModalPesanComponent, HandleErrorService } from "../../../shared";
 
 @Component({
-    selector:"mheadermenu-dialog",
-    templateUrl:"mheadermenu-dialog.component.html"
+    selector:"app-mheadermenu-dialog",
+    templateUrl:"./mheadermenu-dialog.component.html"
 })
 
 export class MheadermenuDialogComponent implements OnInit{
@@ -89,6 +89,7 @@ export class MheadermenuDialogComponent implements OnInit{
         this.mheadermenu = data;
         this.modalPesan(data.kode);        
         this.router.navigate(['/mheadermenu']);
+        
     }
 
     onErrorSave(error){
