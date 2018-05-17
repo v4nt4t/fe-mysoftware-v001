@@ -50,8 +50,9 @@ export class MmenuServices{
 
     //mencari semua data tanpa pagination
     queryAll():Observable<HttpResponse<any>>{
+        const url = `${this.url}/all`;
         return this.http.get<Mmenu[]>(
-            this.url, 
+            url, 
             { 
                observe: 'response'
             }

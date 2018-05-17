@@ -37,8 +37,9 @@ export class MheadermenuServices{
 
     //mencari semua data
     queryAll():Observable<HttpResponse<any>>{
+        const url = `${this.url}/all`;
         return this.http.get<Mheadermenu[]>(
-            this.url, 
+            url, 
             { 
                observe: 'response'
             }

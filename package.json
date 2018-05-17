@@ -24,6 +24,7 @@
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
+    "dropify": "^0.2.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "ngx-bootstrap": "^2.0.3",

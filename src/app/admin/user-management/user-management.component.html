@@ -1,5 +1,6 @@
+
 <p>
-  <b>MENU</b>
+  <b>USER MANAGEMENT</b>
 </p>
 
 <app-pesan></app-pesan>
@@ -56,23 +57,23 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let mmenu of mmenus; trackBy: trackIdentity; let i=index">
+      <tr *ngFor="let muser of musers; trackBy: trackIdentity; let i=index">
         <th>{{i + nomor}}</th>
-        <td><b>Kode    :</b> {{mmenu.kode}} <br> 
-            <b>Uraian  :</b> {{mmenu.menu}} <br>
-            <b>Objek   :</b> {{mmenu.objek}} <br>
-            <b>Aktif   :</b> {{mmenu.allowedf}} <br> 
-            <b>Urutan  :</b> {{mmenu.urutan}} <br> 
-            <b>Group  :</b> {{mmenu.mgroupmenu.groupmenu}}</td>
-            <td class="text-right">
+        <td><b>Login    :</b> {{muser.login}} <br> 
+            <b>First Name     :</b> {{muser.firstName}}<br>
+            <b>Last Name     :</b> {{muser.lastName}}<br>
+            <b>Email   :</b> {{muser.email}} <br> 
+            <b>Activated  :</b> {{muser.activated}} <br> 
+          </td>
+        <td class="text-right">
             <button type="submit" 
-            [routerLink]="['/mmenu/' + mmenu.id +'/edit' ]"
+            [routerLink]="['/user-management/' + muser.id +'/edit' ]"
             class="btn btn-primary btn-sm"
             title="Edit">
               <fa name="edit"></fa>
             </button>
             <button type="submit" class="btn btn-danger btn-sm"
-            title="Delete" (click)="openDeleteConfirm(mmenu.id, mmenu.kode)">
+            title="Delete" (click)="openDeleteConfirm(muser.id, muser.login)">
               <fa name="trash"></fa>
             </button>
 
@@ -83,7 +84,7 @@
 </div>
 <!-- ============================================================== -->
 <!-- =================pagination=============================== -->
-<div *ngIf="mmenus && mmenus.length" >
+<div *ngIf="musers && musers.length" >
  
   <div class="d-flex justify-content-center">
       <app-item-count [page]="page" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems"> </app-item-count>
@@ -100,7 +101,7 @@
 
 <!-- ============================================================== -->
 <!-- =================add button=============================== -->
-<app-button-add [link]="'/mmenu-new'"></app-button-add>
+<app-button-add [link]="'/user-management-new'"></app-button-add>
 
 <!-- ============================================================== -->
 <!-- =================modal delete confirm=============================== -->
@@ -113,7 +114,7 @@
               <h4 id="dialog-child-name" class="modal-title pull-left">Konfirmasi</h4>
           </div>
           <div class="modal-body text-center">
-            <p>Apakah data dengan kode {{param}} ini akan di Hapus ?</p>
+            <p>Apakah data dengan login {{param}} ini akan di Hapus ?</p>
             <button type="button" class="btn btn-default" (click)="delete()" >Yes</button>
             <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
           </div>

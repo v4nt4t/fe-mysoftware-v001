@@ -18,6 +18,7 @@ import { AccountModule } from './account/account.module';
 import { EntitiesModule } from './entities/entities.module';
 import { httpInterceptorProviders } from './block/http-interceptors';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminModule } from './admin/admin.module';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     Ng2Webstorage,
     AccountModule,
+    AdminModule,
     EntitiesModule
   ],
   providers: [

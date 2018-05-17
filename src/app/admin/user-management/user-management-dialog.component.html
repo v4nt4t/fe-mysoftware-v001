@@ -1,0 +1,143 @@
+
+<app-pesan></app-pesan>
+<p><b>USER MANAGEMENT</b></p>
+<hr>
+<div>
+    <button type="submit" 
+        class="btn btn-primary pull-right" 
+        title="Kembali" 
+        [routerLink]="'/user-management'">
+        <fa name="chevron-left" size="1x"></fa>
+    </button>
+</div>
+<br><br>
+
+<div class="container-fluid">
+    <form  name="editForm" #editForm="ngForm">      
+
+        <div class="form-row">          
+            <div class="form-group col-md-3">    
+                <img [src]='url' height="200" width="200" class="img-thumbnail"> 
+                <br><br>
+                <input type="file" class="form-control-file" id="imageUrl" (change)="onSelectFile($event)">
+            </div>
+
+            <div class="form-group col-md-8">
+
+                <div class="form-group">
+                    <label for="field_id">ID</label>
+                    <input type="text" class="form-control" placeholder="Automatic" 
+                    name = "field_id" id="field_id" [(ngModel)] = "muser.id" disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label for="field_login">Login</label>
+                    <input type="text" class="form-control" placeholder="Login"
+                    name = "field_login" id="field_login" [(ngModel)] = "muser.login"
+                    required maxlength="50">
+                    <div [hidden]="!(editForm.controls.field_login?.dirty && editForm.controls.field_login?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_login?.errors?.required">
+                            field ini harus diisi.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_login?.errors?.maxlength">
+                            field ini tidak boleh lebih dari 50 karakter.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                        <label for="field_email">Email</label>
+                        <input type="email" class="form-control" placeholder="Email"
+                        name = "field_email" [(ngModel)] = "muser.email"
+                        required maxlength="50">
+                        <div [hidden]="!(editForm.controls.field_email?.dirty && editForm.controls.field_email?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.field_email?.errors?.required">
+                                field ini harus diisi.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.field_email?.errors?.maxlength">
+                                field ini tidak boleh lebih dari 50 karakter.
+                            </small>
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="field_firstName">First Name</label>
+                    <input type="text" class="form-control" placeholder="First Name"
+                    name = "field_firstName" id = "field_firstName" [(ngModel)] = "muser.firstName"
+                    required maxlength="50">
+                    <div [hidden]="!(editForm.controls.field_firstName?.dirty && editForm.controls.field_firstName?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_firstName?.errors?.required">
+                            field ini harus diisi.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_firstName?.errors?.maxlength">
+                            field ini tidak boleh lebih dari 50 karakter.
+                        </small>
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label for="field_lastName">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last Name"
+                    name = "field_lastName" [(ngModel)] = "muser.lastName"
+                    required maxlength="50">
+                    <div [hidden]="!(editForm.controls.field_lastName?.dirty && editForm.controls.field_lastName?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_lastName?.errors?.required">
+                            field ini harus diisi.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_lastName?.errors?.maxlength">
+                            field ini tidak boleh lebih dari 50 karakter.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="field_password">Password</label>
+                    <input type="password" class="form-control" placeholder="Password"
+                    name = "field_password" [(ngModel)] = "muser.password"
+                    required minlength = "2" maxlength="50">
+
+                    <div [hidden]="!(editForm.controls.field_password?.dirty && editForm.controls.field_lastName?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_password?.errors?.required">
+                            field ini harus diisi.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_password?.errors?.maxlength">
+                            field ini tidak boleh lebih dari 50 karakter.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.field_password?.errors?.minlength">
+                            Harus diisi 2-50 karakter.
+                        </small>
+                        
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" 
+                    name = "field_activated" id="field_activated" 
+                    [(ngModel)] = "muser.activated">
+                    <label class="form-check-label" for="field_activated" >
+                        <span *ngIf="muser.activated; else elseBlock"> Aktif </span>
+                        <ng-template #elseBlock><span > Tidak Aktif </span></ng-template>
+                    </label>
+                </div>
+
+                <br>
+                <!-- <button type="submit" class="btn btn-info" title="Reset" *ngIf="dataTidakAda" (click)= "reset()">Reset</button> -->
+                <button type="submit" class="btn btn-primary" 
+                title="Simpan" (click)= "saveUpload()"
+                [disabled]="editForm.form.invalid || isSaving">Simpan</button>
+            
+            </div>
+        </div>
+    </form>
+</div>

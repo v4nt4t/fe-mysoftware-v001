@@ -50,8 +50,9 @@ export class MgroupmenuServices{
 
      //mencari semua data
      queryAll():Observable<HttpResponse<any>>{
+        const url = `${this.url}/all`;
         return this.http.get<Mgroupmenu[]>(
-            this.url, 
+            url, 
             { 
                observe: 'response'
             }
