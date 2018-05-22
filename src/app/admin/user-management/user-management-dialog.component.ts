@@ -56,14 +56,14 @@ import { DomSanitizer } from "@angular/platform-browser";
           this.getStatusData();
 
           if (muser.imageUrl !== null && muser.imageUrl !== ''){
-            this.loadFile(muser.imageUrl);
+            this.loadFile(muser.id);
           }
           
       }
     )}
 
-    loadFile(imgUrl:string){
-      this.userManagementServices.queryGetFile(imgUrl).subscribe((data)=>{
+    loadFile(id:string){
+      this.userManagementServices.queryGetFile(id).subscribe((data)=>{
 
         this.url = this.sanitizer.bypassSecurityTrustUrl(this.imageType + data.content);
 
@@ -99,11 +99,10 @@ import { DomSanitizer } from "@angular/platform-browser";
         this.currentFileUpload = null;
       }
       
-      this.userManagementServices.createDataAndFile(this.muser, this.currentFileUpload)
-            .subscribe( 
-                data=>this.onSuccesSave(data),
-                error=>this.onErrorSave(error));
-                
+      this.userManagementServices.updateDataAndFile(this.muser, this.currentFileUpload)
+      .subscribe( 
+          data=>this.onSuccesSave(data),
+          error=>this.onErrorSave(error));
     }
 
     onSuccesSave(data){

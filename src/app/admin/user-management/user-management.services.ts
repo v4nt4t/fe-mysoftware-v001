@@ -20,20 +20,24 @@ export class UserManagementServices{
         private http:HttpClient  
     ){}
 
-    //tambah data
-    create(data:Muser):Observable<Muser>{
-        return this.http.post<Muser>(this.url, data, httpOptions);
-    }
-
     //tambah data dan File upload
-    createDataAndFile(data:Muser, file?:File):Observable<{}>{
+    createDataAndFile(data:Muser, file:File):Observable<{}>{
 
         let formdata: FormData = new FormData();
+        formdata.append("file", file, file.name);
+        formdata.append("muser", JSON.stringify(data));
 
-        if(file){
-            formdata.append("file", file, file.name);
-        }
-        
+        return this.http.post(`${this.url}/createUserAndFile`, formdata)
+    }
+
+
+    //tambah data dan File upload
+    updateDataAndFile(data:Muser, file?:File):Observable<{}>{
+
+        let formdata: FormData = new FormData();
+        // if(file){
+            formdata.append("file", file);
+        // }
         formdata.append("muser", JSON.stringify(data));
 
         return this.http.post(`${this.url}/createUserAndFile`, formdata)
@@ -42,6 +46,11 @@ export class UserManagementServices{
     //ubah data
     update(data:Muser):Observable<Muser>{
         return this.http.put<Muser>(this.url, data, httpOptions);
+    }
+
+    //ubah data
+    resetPassword(data:any):Observable<any>{
+        return this.http.post<any>(`${this.url}/admResetPass`, data, httpOptions);
     }
 
     //hapus data
@@ -76,9 +85,9 @@ export class UserManagementServices{
 
     }
 
-    //mencari file getFile
-    queryGetFile(fileName:string):Observable<any>{
-        const url = `${this.url}/fileBase64/${fileName}`;
+    //mencari file image foto berdasarkan konfersi ke base64
+    queryGetFile(id:string):Observable<any>{
+        const url = `${this.url}/fileBase64/${id}`;
         return this.http.get(url);
     }
 

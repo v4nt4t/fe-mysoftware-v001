@@ -12,5 +12,12 @@ export class Muser implements BaseEntity{
     ){
         this.activated = false;
     }
+}
 
+export class MuserVM extends Muser{
+    constructor(
+        public password?:string
+    ){
+        super();
+    }
 }

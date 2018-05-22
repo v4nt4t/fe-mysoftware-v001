@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, TabsModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import {Ng2Webstorage} from 'ngx-webstorage';
@@ -34,6 +34,7 @@ import { AdminModule } from './admin/admin.module';
     HttpClientModule,
     HttpModule,
     ModalModule.forRoot(),
+    TabsModule.forRoot(),
     AppRoutingModule,
     HomeModule,
     SharedModule,

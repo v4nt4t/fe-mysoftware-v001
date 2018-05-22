@@ -3,11 +3,12 @@ import { RouterModule } from "@angular/router";
 import { userManagementRoute } from "./user-management.route";
 import { SharedLibModule } from "../../shared/shared-lib.module";
 import { SharedModule } from "../../shared/shared.module";
-import { PaginationModule, ModalModule } from "ngx-bootstrap";
+import { PaginationModule, ModalModule, TabsModule } from "ngx-bootstrap";
 import { 
     UserManagementComponent, 
     UserManagementServices, 
-    UserManagementDialogComponent 
+    UserManagementDialogComponent,
+    UserManagementResetPasswordComponent
 } from "./";
 
 @NgModule({
@@ -16,11 +17,13 @@ import {
         SharedModule,
         RouterModule.forChild(userManagementRoute),
         PaginationModule.forRoot(),
-        ModalModule
+        ModalModule,
+        TabsModule
     ],
     declarations:[
         UserManagementComponent,
-        UserManagementDialogComponent
+        UserManagementDialogComponent,
+        UserManagementResetPasswordComponent
     ],
     providers:[
         UserManagementServices
