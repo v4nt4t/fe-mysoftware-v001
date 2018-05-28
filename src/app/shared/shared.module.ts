@@ -7,10 +7,12 @@ import {
   ParseLinks,
   ModalPesanComponent,
   PesanService,
-  HandleErrorService
+  HandleErrorService,
+  AccountServices
 } from './';
 import { SharedCommonModule } from './shared-common-module';
 import { SharedLibModule } from './shared-lib.module';
+
 
 @NgModule({
   imports: [
@@ -27,7 +29,8 @@ import { SharedLibModule } from './shared-lib.module';
     AuthServerProvider,
     ParseLinks,
     PesanService,
-    HandleErrorService
+    HandleErrorService,
+    AccountServices
   ],
   entryComponents:[
     ModalPesanComponent

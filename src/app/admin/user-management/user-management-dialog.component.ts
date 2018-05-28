@@ -12,6 +12,7 @@ import { DomSanitizer } from "@angular/platform-browser";
   export class UserManagementDialogComponent implements OnInit {
 
     muser:Muser;
+    authorities:any[];
     url:any = "assets/img/user-icon.png";
     selectedFiles:FileList;
     currentFileUpload: File;
@@ -30,7 +31,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 
     ngOnInit(){ 
       this.init();
-
+      this.loadAuthorities();
       this.route.params.subscribe((params)=>{
         if(params['id']){
             this.load(params['id']);
@@ -70,6 +71,13 @@ import { DomSanitizer } from "@angular/platform-browser";
       })
     }
 
+    loadAuthorities(){
+      this.userManagementServices.authorities()
+        .subscribe(data =>{
+            this.authorities = data.body;
+        })
+    }
+
     onSelectFile(event) { // called each time file input changes
 
       //cek file upload harus image
@@ -99,7 +107,7 @@ import { DomSanitizer } from "@angular/platform-browser";
         this.currentFileUpload = null;
       }
       
-      this.userManagementServices.updateDataAndFile(this.muser, this.currentFileUpload)
+      this.userManagementServices.createDataAndFile(this.muser, this.currentFileUpload)
       .subscribe( 
           data=>this.onSuccesSave(data),
           error=>this.onErrorSave(error));

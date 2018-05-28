@@ -24,24 +24,25 @@ export class UserManagementServices{
     createDataAndFile(data:Muser, file:File):Observable<{}>{
 
         let formdata: FormData = new FormData();
-        formdata.append("file", file, file.name);
+        // formdata.append("file", file, file.name);
+        formdata.append("file", file);
         formdata.append("muser", JSON.stringify(data));
 
         return this.http.post(`${this.url}/createUserAndFile`, formdata)
     }
 
 
-    //tambah data dan File upload
-    updateDataAndFile(data:Muser, file?:File):Observable<{}>{
+    // //tambah data dan File upload
+    // updateDataAndFile(data:Muser, file?:File):Observable<{}>{
 
-        let formdata: FormData = new FormData();
-        // if(file){
-            formdata.append("file", file);
-        // }
-        formdata.append("muser", JSON.stringify(data));
+    //     let formdata: FormData = new FormData();
+    //     // if(file){
+    //         formdata.append("file", file);
+    //     // }
+    //     formdata.append("muser", JSON.stringify(data));
 
-        return this.http.post(`${this.url}/createUserAndFile`, formdata)
-    }
+    //     return this.http.post(`${this.url}/createUserAndFile`, formdata)
+    // }
 
     //ubah data
     update(data:Muser):Observable<Muser>{
@@ -115,5 +116,15 @@ export class UserManagementServices{
                params:options
             }
         );
+    }
+
+    authorities(): Observable<HttpResponse<any>>{
+        const url = `${this.url}/authorities`;
+        return this.http.get(
+            url
+        ,
+        { 
+            observe: 'response'
+         });
     }
 }

@@ -10,6 +10,7 @@ import {
     UserManagementDialogComponent,
     UserManagementResetPasswordComponent
 } from "./";
+import { UserManagementMenuModule } from "../user-management-menu";
 
 @NgModule({
     imports:[
@@ -18,7 +19,8 @@ import {
         RouterModule.forChild(userManagementRoute),
         PaginationModule.forRoot(),
         ModalModule,
-        TabsModule
+        TabsModule,
+        UserManagementMenuModule
     ],
     declarations:[
         UserManagementComponent,

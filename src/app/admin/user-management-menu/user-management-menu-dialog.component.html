@@ -1,0 +1,63 @@
+<app-pesan></app-pesan>
+<div>
+    <button type="submit" 
+        class="btn btn-primary pull-right" 
+        title="Kembali" 
+        (click) = "previousState()">
+        <fa name="chevron-left" size="1x"></fa>
+    </button>
+</div>
+<br>
+<div>
+<form  name="editForm" #editForm="ngForm">
+    <div class="form-group">
+        <label for="field_id">ID</label>
+        <input type="text" class="form-control" placeholder="Automatic" 
+          name = "id" id="field_id" [(ngModel)] = "mmenuuser.id" disabled>
+    </div>
+
+    <div class="form-group">
+            <label for="field_user">User</label>
+            <input type="text" class="form-control" placeholder="User"
+            name = "field_user" [(ngModel)] = "mmenuuser.muser.firstName"
+            required maxlength="50" disabled>
+            <div [hidden]="!(editForm.controls.field_user?.dirty && editForm.controls.field_user?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.field_user?.errors?.required">
+                    field ini harus diisi.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.field_user?.errors?.maxlength">
+                    field ini tidak boleh lebih dari 50 karakter.
+                </small>
+            </div>
+        </div>
+
+    <div class="form-group">
+        <label for="field_menu">Menu</label>
+        <select class="form-control" 
+        [(ngModel)]="mmenuuser.mmenu.id" 
+        [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let mmenu of mmenus" [ngValue]="mmenu.id">
+                {{mmenu.menu}}
+            </option> 
+        </select>
+        
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" 
+        name = "field_allowedf" id="field_allowedf" 
+        [(ngModel)] = "mmenuuser.allowedf">
+        <label class="form-check-label" for="field_allowedf" >
+            <span *ngIf="mmenuuser.allowedf; else elseBlock"> Aktif </span>
+            <ng-template #elseBlock><span > Tidak Aktif </span></ng-template>
+        </label>
+    </div>
+</form>
+<br>
+<!-- <button type="submit" class="btn btn-info" title="Reset" *ngIf="dataTidakAda" (click)= "reset()">Reset</button> -->
+<button type="submit" class="btn btn-primary" 
+title="Simpan" (click)= "save()"
+[disabled]="editForm.form.invalid || isSaving">Simpan</button>
+</div>

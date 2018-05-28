@@ -1,0 +1,74 @@
+<!-- =================tabel data=============================== -->
+<div>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th></th>
+          <th class="text-right"><button type="submit" 
+            [routerLink]="['/user-management-menu/'+ muser.id +'/new']"
+            class="btn btn-info btn-custom-circle"
+            title="tambah">
+              <fa name="pencil" size = "2x"></fa>
+            </button></th>
+            
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mmenuuser of mmenuusers; trackBy: trackIdentity; let i=index">
+          <th>{{i + nomor}}</th>
+          <td><b>Menu    :</b> {{mmenuuser.mmenu.menu}} <br> 
+              <b>Aktif   :</b> {{mmenuuser.allowedf}}<br> 
+            </td>
+          <td class="text-right">
+              <button type="submit" 
+              [routerLink]="['/user-management-menu/' + mmenuuser.id +'/edit' ]"
+              class="btn btn-primary btn-sm"
+              title="Edit">
+                <fa name="edit"></fa>
+              </button>
+              <button type="submit" class="btn btn-danger btn-sm"
+              title="Delete" (click)="openDeleteConfirm(mmenuuser.id, mmenuuser.mmenu.menu)">
+                <fa name="trash"></fa>
+              </button>
+  
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- ============================================================== -->
+  <!-- =================pagination=============================== -->
+<div *ngIf="mmenuusers && mmenuusers.length" >
+ 
+  <div class="d-flex justify-content-center">
+      <app-item-count [page]="page" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems"> </app-item-count>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" [directionLinks] = "true" 
+      [rotate]="true" [itemsPerPage] = "itemsPerPage" [(ngModel)]="page"
+      [totalItems]="totalItems" [maxSize]="5" (pageChanged) = "pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- =================modal delete confirm=============================== -->
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+     <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+              <h4 id="dialog-child-name" class="modal-title pull-left">Konfirmasi</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p>Apakah data {{param}} ini akan di Hapus ?</p>
+            <button type="button" class="btn btn-default" (click)="delete()" >Yes</button>
+            <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+          </div>
+        </div>
+      </div>
+</div>

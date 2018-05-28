@@ -17,7 +17,6 @@ import { ItemCountComponent } from "./util/item-count.component";
     ],
     exports:[
         ItemCountComponent,
-
         ButtonaddComponent,
         PesanComponent
     ]

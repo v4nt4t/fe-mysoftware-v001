@@ -2,13 +2,51 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Menu</h5>
+          <h6 class="modal-title text-center" id="exampleModalLabel">MENU</h6>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ...
+          
+          <ul class="nav flex-column sidebar-first-level">
+
+            <li class="nav-item" *ngFor="let mheadermenu of mheadermenus; let i=index">
+              <a role="button" class="nav-link" (click)="isCollapsed[i] = !isCollapsed[i]"
+              [attr.aria-expanded]="isCollapsed[i]" aria-controls="collapse-first-level">
+                <fa *ngIf = "!isCollapsed[i]" name="folder-open"></fa>
+                <fa *ngIf = "isCollapsed[i]" name="folder"></fa>
+                {{mheadermenu.headermenu}} 
+              </a>
+              
+              <div id="collapse-first-level" [collapse]="isCollapsed[i]">
+                <ul class="nav flex-column sidebar-second-level">
+                    <li class="nav-item" *ngFor="let mgroupmenu of mgroupmenus; let x=index">
+                      <a *ngIf="mheadermenu.id == mgroupmenu.mheadermenuId" role="button" class="nav-link" (click)="isMultiCollapsed[x] = !isMultiCollapsed[x]"
+                      [attr.aria-expanded]="isMultiCollapsed[i]" aria-controls="collapse-second-level">
+                        <fa *ngIf = "!isMultiCollapsed[x]" name="folder-open"></fa>
+                        <fa *ngIf = "isMultiCollapsed[x]" name="folder"></fa>
+                        {{mgroupmenu.groupmenu}}
+                      </a>
+                      
+                      <div id = "collapse-second-level" [collapse]="isMultiCollapsed[x]">
+                        <ul class="nav flex-column sidebar-third-level">
+                          
+                            <li class="nav-item" *ngFor="let mmenuuser of mmenuusers; let x=index">
+                              <a *ngIf="mgroupmenu.id == mmenuuser.mgroupmenuId" class="nav-link" [routerLink]="['/'+mmenuuser.mmenuObjek]"><fa name="leaf"></fa> {{mmenuuser.mmenuMenu}}</a>
+                            </li>
+                          
+                        </ul>
+                      </div>
+                    
+                    </li>
+                 
+                </ul>
+              </div>
+
+            </li>
+          </ul>
+
         </div>
         <div class="modal-footer">
           <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

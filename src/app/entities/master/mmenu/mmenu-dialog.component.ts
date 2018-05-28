@@ -28,7 +28,7 @@ export class MmenuDialogComponent implements OnInit{
 
     ngOnInit(){
         this.init();
-        this.querymgroupmenu();
+        this.queryMgroupmenu();
 
         this.route.params.subscribe((params)=>{
             if(params['id']){
@@ -94,7 +94,7 @@ export class MmenuDialogComponent implements OnInit{
         }
     )}
 
-    querymgroupmenu(){
+    queryMgroupmenu(){
         this.mgroupmenuService.queryAll()
         .subscribe(
             data =>  this.mgroupmenus = data.body,

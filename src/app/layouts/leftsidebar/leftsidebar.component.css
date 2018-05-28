@@ -52,3 +52,23 @@
     right: 0;
 }
 
+/* sidebar menu */
+.sidebar-first-level li a {
+    /* color:brown; */
+    font-weight:  bold;
+    cursor: pointer;
+}
+
+.sidebar-second-level li a {
+    /* color:darkgrey; */
+    font-weight:  450;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+.sidebar-third-level li a {
+    /* color: brown; */
+    font-weight: normal;
+    padding-left: 40px;
+    cursor: pointer;
+  }

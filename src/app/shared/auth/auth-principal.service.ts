@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AuthService } from "./auth.service";
+import { AuthServerProvider } from "./auth-jwt.service";
 
 
 @Injectable()
@@ -8,7 +8,7 @@ export class AuthPrincipalService {
     private authenticated = false;
 
     constructor(
-        private authService:AuthService
+        private authService:AuthServerProvider
     ){}
 
     identity(status?:boolean): boolean {

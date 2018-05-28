@@ -13,3 +13,4 @@ export * from './message/pesan.service';
 export * from './message/pesan-master.component';
 export * from './error/handle-error.service';
 export * from './button/button-add.component';
+export * from './auth/account.service';
